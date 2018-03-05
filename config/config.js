@@ -2,8 +2,8 @@ module.exports = {
     cosmic: {
       bucket: {
         slug: 'medical-professional',
-        read_key: '6BvD1yy8p7QGLiwIxWjEzvYCYIVDz9O2MWnOxQKwNcRtqHBGBr',
-        write_key: 'GvuI3XJQWk4Z9YrTLzIFClTHgJwaqFCRULXSQCztLldPPqIQ7i'
+        read_key: 'HKibhvkoXaPiXJnWTl65jB9t2IXyXc6TLFLMQrOrYAzDqqGqYw',
+        write_key: 'Yov9FWkW6UG3nnfMU8SVzxQ7jHKT7VkJFHc3CUKBrBY13WsrXW'
       }
     }
   }

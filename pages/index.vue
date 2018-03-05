@@ -1,8 +1,8 @@
 <template>
     <div>
-      <!-- <Appheader/> -->
-      <!-- <Appfooter/> -->
+      <Appheader/>
       <Apphome/>
+      <Appfooter/>
     </div>
 </template>
 
