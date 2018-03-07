@@ -1,125 +1,34 @@
-import Cosmic from './cosmic'
-import config from '../config/config'
-import async, { race } from 'async'
-import _ from 'lodash'
-import {generateTouristPlaceObject} from './paramMapping'
-function getTouristPoints () {
-  return new Promise((resolve, reject) => {
+import Cosmic from 'cosmicjs'
+import config from '~/config/config'
+
+const api = Cosmic()
+const bucket = api.bucket({
+  slug: config.bucket.slug,
+  read_key: config.bucket.read_key,
+  write_key: config.bucket.write_key
+})
+
+function getGlobals () {
     const params = {
-      type_slug : config.object_type,
+      type_slug: 'globals'
     }
-    Cosmic.getObjectsByType(config ,params,(err, res) =>{
-      if(!err) {
-        resolve(res.objects.all);
-      }
-      reject(err);
-    })
-  });
+    return bucket.getObjectsByType(params);
 }
-function editTouristPlace (obj) {
-  return new Promise((resolve, reject) => {
-    const params = generateTouristPlaceObject(obj,true)
-    Cosmic.editObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res.object)
-      } else {
-        reject(err)
-      }
-    })
-  })
-}
-function addTouristPoints (obj) {
-  return new Promise((resolve, reject) => {
-    const params = generateTouristPlaceObject(obj)
-    Cosmic.addObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res.object)
-      } else {
-        reject(err)
-      }
-    })
-  })
-}
-function deleteTouristPoint (place) {
-  console.log(place)
+
+function getPages () {
   const params = {
-    write_key: config.bucket.write_key,
-    slug: place.slug
-  }
-  return new Promise((resolve, reject) => {
-    Cosmic.deleteObject(config, params, (err, res) => {
-      if (!err) {
-        resolve(res)
-      } else {
-        reject(err)
-      }
-    })
-  })
+    type_slug: 'pages'
+  };
+  return bucket.getObjectsByType(params);
 }
-function saveMedia (payload) {
-  return new Promise((resolve, reject) => {
-    if (payload.metadata.place_img1.file && payload.metadata.place_img1.id) {
-      console.log('in first condition')
-      deleteMedia(payload.metadata.place_img1.id).then((res) => {
-        addMedia(payload.metadata.place_img1.file).then((media) => {
-        payload.metadata.place_img1.url = media.url
-          payload.metadata.place_img1.imgix_url = media.imgix_url
-          payload.metadata.place_img1.value = media.name
-          payload.metadata.place_img1.id = media._id
-          delete payload.metadata.place_img1.file
-          resolve(payload)
-        })
-      })
-        .catch(e => {
-          reject(e)
-        })
-    } else if (payload.metadata.place_img1.file) {
-      console.log('in second condition')
-      addMedia(payload.metadata.place_img1.file).then((media) => {
-        payload.metadata.place_img1.url = media.url
-        payload.metadata.place_img1.imgix_url = media.imgix_url
-        payload.metadata.place_img1.value = media.name
-        payload.metadata.place_img1.id = media._id
-        delete payload.metadata.place_img1.file
-        resolve(payload)
-      })
-        .catch(e => {
-          reject(e)
-        })
-    } else {
-      console.log('in 3rd condition')
-      resolve(payload)
-    }
-  })
-}
-function addMedia (file) {
+
+function getBlogs () {
   const params = {
-    media: file,
-    folder: config.image_folder
-  }
-  return new Promise((resolve, reject) => {
-    Cosmic.addMedia(config, params, (err, res) => {
-      if (!err) {
-        resolve(res.body.media)
-      } else {
-        reject(err)
-      }
-    })
-  })
+    type_slug: 'blogs'
+  };
+  return bucket.getObjectsByType(params);
 }
-function deleteMedia (id) {
-  const params = {
-    media_id: id,
-    write_key: config.bucket.write_key
-  }
-  return new Promise((resolve, reject) => {
-    Cosmic.deleteMedia(config, params, (err, res) => {
-      if (!err) {
-        resolve(res)
-      } else {
-        reject(err)
-      }
-    })
-  })
-}
-export default {getTouristPoints,addTouristPoints,saveMedia,deleteTouristPoint,deleteMedia,editTouristPlace}
+
+
+
+export default {getGlobals,getPages,getBlogs}

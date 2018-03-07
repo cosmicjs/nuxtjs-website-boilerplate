@@ -44,5 +44,6 @@
     footer{
         height: 300px;
         background-color: darkgray;
+        margin-top: 5%;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container text-center">
-            <a><img src="~/static/md.png" alt=""  height="60px;"></a>
+            <!-- <a><img :src="header.metadata.logo.url" alt=""  height="60px;"></a> -->
         </div>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -15,29 +15,16 @@
                     </div>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-center">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About  Us</a></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Services <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Page 1-1</a></li>
-                                <li><a href="#">Page 1-2</a></li>
-                                <li><a href="#">Page 1-3</a></li>
-                            </ul>
+                    <ul class="nav navbar-nav navbar-center" >
+                       <li v-for="navElement in nav.metafields" :key="navElement.id">
+                           <nuxt-link v-if="!navElement.children" :to="navElement.value">{{navElement.title}}</nuxt-link>
+                           <a v-else class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret">{{navElement.title}}</span></a>
+                                <ul class="dropdown-menu">
+                                    <li v-for="e in navElement.children" :key="e.id">
+                                        <nuxt-link :to="e.value">{{e.title}}</nuxt-link>
+                                    </li>
+                                </ul>
                         </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Areas Served <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Page 1-1</a></li>
-                                <li><a href="#">Page 1-2</a></li>
-                                <li><a href="#">Page 1-3</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Search</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,9 +32,16 @@
     </div>
 </template>
 <script>
-const imageUrl = require('~/static/md.png')
-export default {
 
+export default {
+    computed: {
+        header(){
+            return  this.$store.getters.getHeader
+       },
+       nav(){
+           return this.$store.getters.getNav
+       }
+    }
 }
 </script>
 

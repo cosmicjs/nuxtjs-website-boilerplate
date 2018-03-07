@@ -1,6 +1,7 @@
 <template>
   <div>
-        <div id="imaginary_container"> 
+       <div class="container">
+            <div id="imaginary_container"> 
                 <div class="input-group stylish-input-group">
                     <input type="text" class="form-control"  placeholder="Search" >
                     <span class="input-group-addon">
@@ -10,11 +11,13 @@
                     </span>
                 </div>
         </div>
+       </div>
   </div>
 </template>
 <style>
     #imaginary_container{
         margin-top:2%; /* Don't copy this */
+        margin-bottom: 4%;
     }
     .stylish-input-group .input-group-addon{
         background: white !important; 

@@ -1,9 +1,23 @@
 <template>
   <div>
+    <Appheader/>
     <nuxt/>
+    <appfooter/>
   </div>
 </template>
-
+<script>
+import Appheader from '~/components/partials/header.vue'
+import Appfooter from '~/components/partials/footer.vue'
+export default {
+   components: {
+    Appheader,
+    Appfooter,
+  },
+  async created(){
+    await this.$store.dispatch('getGlobals')
+  }
+}
+</script>
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
