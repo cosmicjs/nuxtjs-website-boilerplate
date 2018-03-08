@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 import Request from '~/common/request'
-
+import _ from 'lodash'
 function mapPages(pages) {
   var response = {};
   pages.map((page) => {
@@ -71,7 +71,7 @@ function mapGlobals(globals){
         response.social = global;
         break;
       case 'contact-info':
-        response.contact_info = global;
+        response.contact_info = global
         break;
       case 'footer':
         response.footer = global;
@@ -80,22 +80,14 @@ function mapGlobals(globals){
   })
   return response;
 }
-
-function mapBlog(blogs){
-  var response = {}
-  blogs.map((blog) => {
-    response = blog
-  })
-  return response;
-}
-
 const state = {
   global : {
       header: {},
       nav: {},
       social: {},
-      contact: {},
-      footer: {}
+      contact_info: {},
+      footer: {},
+      contact_form: {}
   },
   pages: {
       home: {},
@@ -110,52 +102,65 @@ const state = {
       contact_us: {}
 
   },
-  blogs: {}
+  blogs: {},
+  search_data: [],
 }
 
 const getters = {
   getHeader(state){
-      return state.global.header
-    },
+    return state.global.header
+  },
   getNav(state){
-        return state.global.nav
-    },
-    getSocial(state){
-        return state.global.social
-    },
-    getHomeData(state){
-        return state.pages.home
-    },
-    getAboutPage(state){
-        return state.pages.about
-    },
-    getBlogPage(state) {
-      return state.pages.blog
-    },
-    getDecidingOnCarePage(state) {
-      return state.pages.decidingOnCare
-    },
-    getSpecialityCenterPage(state) {
-      return state.pages.specialityCenter
-    },
-    getLosAngelesMedicalService(state) {
-      return state.pages.los_angeles_medical_service
-    },
-    getChicagoMedicalService(state) {
-      return state.pages.chicago_medical_service
-    },
-    getNewYorkMedicalService(state) {
-      return state.pages.new_york_medical_service
-    },
-    getFaqs(state) {
-      return state.pages.faqs
-    },
-    getBlog(state) {
-      return state.blogs
-    },
-    getContactUs(state) {
-      return state.pages.contact_us
-    }
+      return state.global.nav
+  },
+  getSocial(state){
+      return state.global.social
+  },
+  getHomeData(state){
+      return state.pages.home
+  },
+  getAboutPage(state){
+    return state.pages.about
+  },
+  getBlogPage(state) {
+    return state.pages.blog
+  },
+  getDecidingOnCarePage(state) {
+    return state.pages.decidingOnCare
+  },
+  getSpecialityCenterPage(state) {
+    return state.pages.specialityCenter
+  },
+  getLosAngelesMedicalService(state) {
+    return state.pages.los_angeles_medical_service
+  },
+  getChicagoMedicalService(state) {
+    return state.pages.chicago_medical_service
+  },
+  getNewYorkMedicalService(state) {
+    return state.pages.new_york_medical_service
+  },
+  getFaqs(state) {
+    return state.pages.faqs
+  },
+  getBlog(state) {
+    return state.blogs
+  },
+  getContactUs(state) {
+    return state.pages.contact_us
+  },
+  getSearchData(state) {
+    return state.search_data 
+  },
+  getContactInfo(state) {
+    return state.global.contact_info
+  },
+  getFooter(state) {
+    return state.global.footer
+  },
+  getContactForm(state) {
+    return state.global.contact_form
+  }
 }
 
 const mutations = {
@@ -206,6 +211,15 @@ const mutations = {
   },
   SET_CONTACT_US: (state,payload) => {
     state.pages.contact_us = payload
+  },
+  SET_SEARCH_DATA: (state, payload) => {
+    state.search_data = payload
+  },
+  SET_CONTACT_INFO: (state, payload) => {
+    state.global.contact_info = payload
+  },
+  SET_CONTACT_FORM: (state, payload) => {
+    state.global.contact_form = payload
   }
 }
 
@@ -213,57 +227,94 @@ const actions = {
   async getGlobals(context,payload){
     const Response = await Request.getGlobals();
     const Globals = Response.objects;
-    const mapped_globals = mapGlobals(Globals);
-    // console.log(mapped_globals.header);
-    context.commit('SET_HEADERS' ,mapped_globals.header)
-    context.commit('SET_NAV' ,mapped_globals.nav)
-    return new Promise((resolve, reject) => {
-      resolve();
-    });
-        // context.commit('SET_SOCIAL' ,Globals[3])
-        // context.commit('SET_CONTACT' ,Globals[4])
-        // context.commit('SET_FOOTER' ,Globals[5])
-    
+    if(Globals){
+      const mapped_globals = mapGlobals(Globals);
+      context.commit('SET_HEADERS' ,mapped_globals.header.metadata)
+      context.commit('SET_NAV' ,mapped_globals.nav)
+      context.commit('SET_CONTACT_INFO',mapped_globals.contact_info.metadata)
+      context.commit('SET_SOCIAL',mapped_globals.social.metadata)
+      context.commit('SET_FOOTER',mapped_globals.footer.metadata)
+      context.commit('SET_CONTACT_FORM',mapped_globals.contact_form.metadata)
+      return new Promise((resolve, reject) => {
+        resolve();
+      });
+    }
   },
-  async getPages(context,payload){
-    const Response = await Request.getPages();
-    const Pages = Response.objects;
-    const mapped_pages = mapPages(Pages);
-    context.commit('SET_HOME' ,mapped_pages.home)
-    context.commit('SET_ABOUT' ,mapped_pages.about_us)
-    context.commit('SET_BLOG' ,mapped_pages.blog)
-    context.commit('SET_FAQS' ,mapped_pages.faqs)
-    context.commit('SET_DECIDE_ON_CARE' ,mapped_pages.deciding_on_care)
-    context.commit('SET_SPECIALITY' ,mapped_pages.specialty)
-    context.commit('SET_CHICAGO_MEDICAL_SERVICE' ,mapped_pages.chicago)
-    context.commit('SET_New_YORK_MEDICAL_SERVICE' ,mapped_pages.new_york)
-    context.commit('SET_LOS_ANGELES_MEDICAL_SERVICE' ,mapped_pages.los_angeles)
-    context.commit('SET_CONTACT_US' ,mapped_pages.contact)
-    return new Promise((resolve, reject) => {
-      resolve();
-    });
+
+  async nuxtServerInit(context,payload){
+    const PagesResponse = await Request.getPages();
+    const Pages = PagesResponse.objects;
+    const BlogsResponse = await Request.getBlogs();
+    const Blogs = BlogsResponse.objects;
+    const SearchResponse = await Request.getSearchData();
+    if(SearchResponse){
+      this.getSearchData(SearchResponse);
+    }
+    if(Blogs){
+      context.commit('SET_BLOGS', Blogs)
+    }
+    if(Pages){
+      const mapped_pages = mapPages(Pages);
+      context.commit('SET_HOME' ,mapped_pages.home)
+      context.commit('SET_ABOUT' ,mapped_pages.about_us)
+      context.commit('SET_BLOG' ,mapped_pages.blog)
+      context.commit('SET_FAQS' ,mapped_pages.faqs)
+      context.commit('SET_DECIDE_ON_CARE' ,mapped_pages.deciding_on_care)
+      context.commit('SET_SPECIALITY' ,mapped_pages.specialty)
+      context.commit('SET_CHICAGO_MEDICAL_SERVICE' ,mapped_pages.chicago)
+      context.commit('SET_New_YORK_MEDICAL_SERVICE' ,mapped_pages.new_york)
+      context.commit('SET_LOS_ANGELES_MEDICAL_SERVICE' ,mapped_pages.los_angeles)
+      context.commit('SET_CONTACT_US' ,mapped_pages.contact)
+      return new Promise((resolve, reject) => {
+        resolve();
+      });
+    }
   },
 
   async getBlog(context,payload){
     const Response = await Request.getBlogs();
     const Blogs = Response.objects;
-    context.commit('SET_BLOGS', Blogs)
+    if(Blogs){
+      context.commit('SET_BLOGS', Blogs)
+      return new Promise((resolve, reject) => {
+        resolve();
+      });
+    }
+  },
+  getSearchData(Response){
+    let search_results = [];
+    Response.objects.forEach(object => {
+      if(object.title.toLowerCase().indexOf(payload) !== -1 || object.content.toLowerCase().indexOf(payload) !== -1){
+        object.teaser = object.content.replace(/(<([^>]+)>)/ig,"").substring(0, 300)
+        if (object.type_slug === 'blogs')
+              object.permalink = '/blog/' + object.slug
+            else
+              object.permalink = '/' + object.slug
+              search_results.push(object)
+      }
+      if (!_.find(search_results, { _id: object._id })) {
+        object.metafields.forEach(metafield => {
+          if(metafield.value.toLowerCase().indexOf(payload) !== -1 && !_.find(search_results, { _id: object._id })) {
+            object.teaser = object.content.replace(/(<([^>]+)>)/ig,"").substring(0, 300)
+            if (object.type_slug === 'blogs')
+              object.permalink = '/blog/' + object.slug
+            else
+              object.permalink = '/' + object.slug
+              search_results.push(object)
+          } 
+        })
+      }
+    });
+    context.commit('SET_SEARCH_DATA', search_results)
     return new Promise((resolve, reject) => {
       resolve();
     });
   },
-    getHeader(getters){
-        return getters.getHeader
-    },
-    getNav(getters){
-        return getters.getNav
-    },
-    getSocial(getters){
-        return getters.social
-    },
-    getAboutPage(getters){
-        return getters.getAboutPage
-    }
+  async sendMessage(context,payload){
+    var data = payload
+    var contact = this.getters.getContactForm
+    const Response = await Request.contactForm(data,contact);
+  }
 }
 
 const createStore = () => {

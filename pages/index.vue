@@ -47,7 +47,7 @@
                 <p class="h1">{{homeData.call_to_action_text.value}}</p>
                 <p class="h4">{{homeData.call_to_action_subtext.value}}</p>
                 <br>
-                <button class="btn btn-default">{{homeData.call_to_action_button_text.value}}</button>
+                <nuxt-link class="btn btn-default" to="contact">{{homeData.call_to_action_button_text.value}}</nuxt-link>
             </div>
         </div>
   </div>
@@ -59,8 +59,5 @@ export default {
         return this.$store.getters.getHomeData
       }
   },
-  async asyncData({store}) {
-    await store.dispatch('getPages')
-  }
 }
 </script>

@@ -2,9 +2,7 @@
   <div>
       <div class="container">
             <h1>{{decideOnCare.title}}</h1>
-            <p v-html="decideOnCare.content">
-                {{decideOnCare.content}}
-            </p>
+            <div v-html="decideOnCare.content"></div>
       </div>
   </div>
 </template>
@@ -15,8 +13,5 @@ export default {
         return this.$store.getters.getDecidingOnCarePage
       }
   },
-  async asyncData({store}) {
-    await store.dispatch('getPages')
-  }
 }
 </script>

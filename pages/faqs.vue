@@ -16,8 +16,5 @@ export default {
         return this.$store.getters.getFaqs
       }
   },
-  async asyncData({store}) {
-    await store.dispatch('getPages')
-  }
 }
 </script>

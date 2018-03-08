@@ -44,13 +44,12 @@ export default {
     },
    computed: {
       blog(){
-          console.log(this.$store.getters.getBlog)
-            return this.$store.getters.getBlog
+        return this.$store.getters.getBlog
       }
   },
-  async asyncData({store}) {
-    await store.dispatch('getBlog')
-  },
+//   async asyncData({store}) {
+//     await store.dispatch('getBlog')
+//   },
   methods: {
       getFullContent(){
           this.isTrue = true;

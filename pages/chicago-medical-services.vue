@@ -2,9 +2,8 @@
   <div>
       <div class="container">
             <h1>{{chicagoMedicalService.title}}</h1>
-            <p v-html="chicagoMedicalService.content">
-                {{chicagoMedicalService.content}}
-            </p>
+            <div v-html="chicagoMedicalService.content">
+            </div>
       </div>
   </div>
 </template>
@@ -15,8 +14,5 @@ export default {
         return this.$store.getters.getChicagoMedicalService
       }
   },
-  async asyncData({store}) {
-    await store.dispatch('getPages')
-  }
 }
 </script>

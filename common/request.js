@@ -1,5 +1,6 @@
 import Cosmic from 'cosmicjs'
 import config from '~/config/config'
+import async from 'async'
 
 const api = Cosmic()
 const bucket = api.bucket({
@@ -29,6 +30,68 @@ function getBlogs () {
   return bucket.getObjectsByType(params);
 }
 
+function getSearchData(){
+  const params = {
+    type_slug: 'blogs'
+  };
+  return bucket.getObjects(params);
+}
+
+function contactForm(data,contact){
+  // async.series([
+  //   callback => {
+  //     var api_key = process.env.MAILGUN_KEY // add mailgun key
+  //     var domain = process.env.MAILGUN_DOMAIN // add mailgun domain
+  //     if (!api_key || !domain)
+  //       return res.status(500).send({ "status": "error", "message": "You must add a MailGun api key and domain using environment variables located in Your Cosmic JS Bucket > Deploy to Web.  Contact your developer to add these values." });
+  //       var mailgun = require('mailgun-js')({ apiKey: api_key, domain: domain })
+  //       var message = 'Name: ' + data.name + '\n\n' +
+  //       'Subject: ' + contact.subject + '\n\n' +
+  //       'Message: ' + data.message + '\n\n'
+  //       var mailgun_data = {
+  //         from: 'Your Website <me@' + domain + '>',
+  //         to: contact.to,
+  //         subject: data.name + ' sent you a new message: ' + data.message,
+  //         text: message
+  //       }  
+  //       mailgun.messages().send(mailgun_data, function (error, body) {
+  //         if (error)
+  //           return res.status(500).send({ "status": "error", "message": "You must add a MailGun api key and domain using environment variables located in Your Cosmic JS Bucket > Deploy to Web.  Contact your developer to add these values." });
+  //         callback()
+  //       })
+  //   },
+  //   callback => {
+  //      // Send to Cosmic
+  //      const params = {
+  //       type_slug: 'form-submissions',
+  //       title: data.name,
+  //       content: data.message,
+       
+  //      metafields: [
+  //       {
+  //         title: 'Email',
+  //         key: 'email',
+  //         type: 'text',
+  //         value: data.email
+  //       },
+  //       {
+  //         title: 'Phone',
+  //         key: 'phone',
+  //         type: 'text',
+  //         value: data.phone
+  //       }
+  //     ]
+  //   }
+  //   if (config.bucket.write_key)
+  //     object.write_key = config.bucket.write_key
+  //     // Write to Cosmic Bucket (Optional)
+  //     bucket.addObject(params, (err, response) => {
+  //       return res.json({ status: 'success', data: response })
+  //     })
+  //   }
+    
+  // ]);
+}
 
 
-export default {getGlobals,getPages,getBlogs}
+export default {getGlobals,getPages,getBlogs,getSearchData,contactForm}

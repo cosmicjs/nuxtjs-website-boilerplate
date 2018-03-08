@@ -2,9 +2,7 @@
   <div>
       <div class="container">
             <h1>{{newYorkMedicalService.title}}</h1>
-            <p v-html="newYorkMedicalService.content">
-                {{newYorkMedicalService.content}}
-            </p>
+            <div v-html="newYorkMedicalService.content"></div>
       </div>
   </div>
 </template>
@@ -15,8 +13,5 @@ export default {
         return this.$store.getters.getNewYorkMedicalService
       }
   },
-  async asyncData({store}) {
-    await store.dispatch('getPages')
-  }
 }
 </script>

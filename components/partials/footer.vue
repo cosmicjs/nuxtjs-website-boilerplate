@@ -4,35 +4,40 @@
             <div class="container">
                 <div class="row">
                 <div class="col-sm-8" style="margin-top:50px;">
-                    <b class="mb-20">Contact Us</b><br />
-                    <b>Phone:</b><br />
-                    0314233423<br />
-                    <b>Email:</b><br />
-                    <a href="#">mediacenter@gmail.com</a>
+                    <label class="mb-20">Contact Us</label>
                     <br />
-                    <b>Address:</b><br />
-                        Address:
-                        12345 Medical Rd
-                        Everywhere, USA
+                    <br>
+                    <label>Phone:</label>
+                    <br />
+                    <p>{{contactInfo.phone}}</p>
+                    <label>Email:</label>
+                    <br />
+                    <p><a :href="'mailto:'+contactInfo.email">{{contactInfo.email}}</a></p>
+                    <label>Address:</label><br />
+                    <p v-html="contactInfo.address">{{contactInfo.address}}</p>
                 </div>
                 <div class="col-sm-4" style="margin-top:50px;">
                     <h4 class="mb-20">Connect</h4>
                     <div class="mb-20">
-                    <a class="mr-10" href="#" target="_blank">
-                        <i class="fa fa-facebook font-26"></i>
-                    </a>
-                    <a class="mr-10" href="#" target="_blank">
-                        <i class="fa fa-twitter font-26"></i>
-                    </a>
-                    <a class="mr-10" href="#" target="_blank">
-                        <i class="fa fa-google-plus font-26"></i>
-                    </a>
+                        <br>
+                        <a class="mr-10" style="margin-right:10px;" :href="social.facebook" target="_blank">
+                            <i class="fa fa-facebook "></i>
+                        </a>
+                        <a class="mr-10" style="margin-right:10px;" :href="social.twitter" target="_blank">
+                            <i class="fa fa-twitter "></i>
+                        </a>
+                        <a class="mr-10" style="margin-right:10px;" :href="social.google_plus" target="_blank">
+                            <i class="fa fa-google-plus "></i>
+                        </a>
                     </div>
-                    <div class="mb-20"> © 2018 Medicenter
+                    <br>
+                    <div class="mb-20"> &copy; 2018 {{footer.company_title}}
                     </div>
+                    <br>
+                    <br>
                     <a href="https://cosmicjs.com" target="_blank">
                     <img class="pull-left mr-15 relative" src="https://cosmicjs.com/images/logo.svg" width="28" height="28">
-                    <span style="color: #666">Proudly powered by Cosmic JS</span>
+                    <span style="margin-left:10px; color: #666">Proudly powered by Cosmic JS</span>
                     </a>
                 </div>
                 </div>
@@ -40,10 +45,29 @@
         </footer>
   </div>
 </template>
+<script>
+export default {
+  computed: {
+      contactInfo() {
+        return this.$store.getters.getContactInfo
+      },
+      social(){
+        return this.$store.getters.getSocial
+      },
+      footer(){
+          return this.$store.getters.getFooter
+      }
+  },
+}
+</script>
+
 <style>
     footer{
         height: 300px;
-        background-color: darkgray;
+        background-color:#f0f0f0;
         margin-top: 5%;
+    }
+    .fa-facebook, .fa-twitter, .fa-google-plus{
+        font-size: 30px;
     }
 </style>

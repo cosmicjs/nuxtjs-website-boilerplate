@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container text-center">
-            <!-- <a><img :src="header.metadata.logo.url" alt=""  height="60px;"></a> -->
+            <!-- <a><img :src="header.logo.url" alt=""  height="60px;"></a> -->
         </div>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -18,7 +18,7 @@
                     <ul class="nav navbar-nav navbar-center" >
                        <li v-for="navElement in nav.metafields" :key="navElement.id">
                            <nuxt-link v-if="!navElement.children" :to="navElement.value">{{navElement.title}}</nuxt-link>
-                           <a v-else class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret">{{navElement.title}}</span></a>
+                           <a v-else class="dropdown-toggle" data-toggle="dropdown" href="#">{{navElement.title}}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li v-for="e in navElement.children" :key="e.id">
                                         <nuxt-link :to="e.value">{{e.title}}</nuxt-link>
@@ -41,7 +41,7 @@ export default {
        nav(){
            return this.$store.getters.getNav
        }
-    }
+    },
 }
 </script>
 
