@@ -31,7 +31,7 @@
                         </a>
                     </div>
                     <br>
-                    <div class="mb-20"> &copy; 2018 {{footer.company_title}}
+                    <div class="style"> &copy; 2018 {{footer.company_title}}
                     </div>
                     <br>
                     <br>
@@ -63,11 +63,25 @@ export default {
 
 <style>
     footer{
-        height: 300px;
+        height: 350px;
         background-color:#f0f0f0;
         margin-top: 5%;
+        border-top: 1px solid #e7e7e7;
+        background-color: #f8f8f8;
     }
     .fa-facebook, .fa-twitter, .fa-google-plus{
-        font-size: 30px;
+        font-size: 26px;
+    }
+    label,h4{
+        color:#666;
+    }
+    a{
+        color: #131982;
+    }
+    .style{
+        font-family: Roboto,sans-serif;
+        font-size: 15px;
+        line-height: 2;
+        color: #666;
     }
 </style>

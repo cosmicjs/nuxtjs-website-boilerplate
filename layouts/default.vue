@@ -13,9 +13,25 @@ export default {
     Appheader,
     Appfooter,
   },
-  async created(){
-    await this.$store.dispatch('getGlobals')
-  }
+  async asyncData ({route, store, error}) {
+    let data = {
+      favicon: {}
+    }
+    let res = await FeedService.getPosts({id: id})
+    data.singlepost = res.data
+    return data
+  },
+  computed: {
+    header(){
+      return  this.$store.getters.getHeader
+    }
+  },
+  head () {
+    return {
+       link: this.header.favicon.url,
+       title: this.header.site_title,
+    }
+},
 }
 </script>
 <style>

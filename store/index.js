@@ -1,6 +1,9 @@
 import Vuex from 'vuex'
+import Vue from 'vue'
 import Request from '~/common/request'
 import _ from 'lodash'
+import VeeValidate from 'vee-validate'
+Vue.use(VeeValidate)
 function mapPages(pages) {
   var response = {};
   pages.map((page) => {
@@ -103,6 +106,8 @@ const state = {
 
   },
   blogs: {},
+  blog: {},
+  search: {},
   search_data: [],
 }
 
@@ -160,6 +165,9 @@ const getters = {
   },
   getContactForm(state) {
     return state.global.contact_form
+  },
+  getSelectedBlog(state) {
+    return state.blog 
   }
 }
 
@@ -220,26 +228,16 @@ const mutations = {
   },
   SET_CONTACT_FORM: (state, payload) => {
     state.global.contact_form = payload
+  },
+  SET_SEARCH: (state, payload) => {
+    state.search = payload
+  },
+  SET_SELECTED_BLOG: (state,payload) => {
+    state.blog = payload
   }
 }
 
 const actions = {
-  async getGlobals(context,payload){
-    const Response = await Request.getGlobals();
-    const Globals = Response.objects;
-    if(Globals){
-      const mapped_globals = mapGlobals(Globals);
-      context.commit('SET_HEADERS' ,mapped_globals.header.metadata)
-      context.commit('SET_NAV' ,mapped_globals.nav)
-      context.commit('SET_CONTACT_INFO',mapped_globals.contact_info.metadata)
-      context.commit('SET_SOCIAL',mapped_globals.social.metadata)
-      context.commit('SET_FOOTER',mapped_globals.footer.metadata)
-      context.commit('SET_CONTACT_FORM',mapped_globals.contact_form.metadata)
-      return new Promise((resolve, reject) => {
-        resolve();
-      });
-    }
-  },
 
   async nuxtServerInit(context,payload){
     const PagesResponse = await Request.getPages();
@@ -247,8 +245,11 @@ const actions = {
     const BlogsResponse = await Request.getBlogs();
     const Blogs = BlogsResponse.objects;
     const SearchResponse = await Request.getSearchData();
-    if(SearchResponse){
-      this.getSearchData(SearchResponse);
+    const Search = SearchResponse.objects;
+    const Response = await Request.getGlobals();
+    const Globals = Response.objects;
+    if(Search){
+      context.commit('SET_SEARCH',Search)
     }
     if(Blogs){
       context.commit('SET_BLOGS', Blogs)
@@ -265,25 +266,22 @@ const actions = {
       context.commit('SET_New_YORK_MEDICAL_SERVICE' ,mapped_pages.new_york)
       context.commit('SET_LOS_ANGELES_MEDICAL_SERVICE' ,mapped_pages.los_angeles)
       context.commit('SET_CONTACT_US' ,mapped_pages.contact)
-      return new Promise((resolve, reject) => {
-        resolve();
-      });
+    }
+    if(Globals){
+      const mapped_globals = mapGlobals(Globals);
+      console.log(mapped_globals.header)
+      context.commit('SET_HEADERS' ,mapped_globals.header.metadata)
+      context.commit('SET_NAV' ,mapped_globals.nav)
+      context.commit('SET_CONTACT_INFO',mapped_globals.contact_info.metadata)
+      context.commit('SET_SOCIAL',mapped_globals.social.metadata)
+      context.commit('SET_FOOTER',mapped_globals.footer.metadata)
+      context.commit('SET_CONTACT_FORM',mapped_globals.contact_form.metadata)
     }
   },
-
-  async getBlog(context,payload){
-    const Response = await Request.getBlogs();
-    const Blogs = Response.objects;
-    if(Blogs){
-      context.commit('SET_BLOGS', Blogs)
-      return new Promise((resolve, reject) => {
-        resolve();
-      });
-    }
-  },
-  getSearchData(Response){
+  getSearchData(context, payload){
+    let objects = this.state.search;
     let search_results = [];
-    Response.objects.forEach(object => {
+    objects.forEach(object => {
       if(object.title.toLowerCase().indexOf(payload) !== -1 || object.content.toLowerCase().indexOf(payload) !== -1){
         object.teaser = object.content.replace(/(<([^>]+)>)/ig,"").substring(0, 300)
         if (object.type_slug === 'blogs')
@@ -314,6 +312,14 @@ const actions = {
     var data = payload
     var contact = this.getters.getContactForm
     const Response = await Request.contactForm(data,contact);
+    return Response
+  },
+  getBlog(context,payload){
+    this.state.blogs.forEach(element => {
+      if(element.slug == payload){
+        context.commit('SET_SELECTED_BLOG',element)
+      }
+    });
   }
 }
 

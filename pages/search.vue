@@ -2,6 +2,7 @@
   <div>
        <div class="container">
             <div id="imaginary_container"> 
+                <h1>Search</h1>
                 <div class="input-group stylish-input-group">
                     <input type="text" v-model="searchField" class="form-control"  placeholder="Search" @keyup.enter = 'searchResult'>
                     <span class="input-group-addon">
@@ -61,5 +62,17 @@ export default {
     .stylish-input-group button{
         border:0;
         background:transparent;
+    }
+    h1{
+        color: #666;
+    }
+    .form-control {
+        width: 100%;
+        height: 44px;
+        padding: 6px 12px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
 </style>

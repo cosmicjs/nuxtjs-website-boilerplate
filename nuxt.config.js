@@ -21,6 +21,10 @@ module.exports = {
     modules: [
       // Simple usage
       // 'bootstrap-vue/nuxt',
+      { src: '~plugins/vee-validate.js' }
+      // ['vee-validate', {
+      //   lang: 'en', 
+      // }]
     ]
   },
   
@@ -35,6 +39,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+    vendor: ['vee-validate'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container text-center">
-            <!-- <a><img :src="header.logo.url" alt=""  height="60px;"></a> -->
+            <nuxt-link to="/"><img :src="header.logo.url" alt=""  height="60px;"></nuxt-link>
         </div>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
@@ -50,4 +50,5 @@ export default {
         position: absolute;
         left: 20%;
     }
+    
 </style>

@@ -1,0 +1,2 @@
+MAILGUN_KEY = ''
+MAILGUN_DOMAIN = ''

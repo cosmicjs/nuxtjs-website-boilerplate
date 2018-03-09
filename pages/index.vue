@@ -47,7 +47,7 @@
                 <p class="h1">{{homeData.call_to_action_text.value}}</p>
                 <p class="h4">{{homeData.call_to_action_subtext.value}}</p>
                 <br>
-                <nuxt-link class="btn btn-default" to="contact">{{homeData.call_to_action_button_text.value}}</nuxt-link>
+                <nuxt-link class="btn btn-default btn-lg" to="contact">{{homeData.call_to_action_button_text.value}}</nuxt-link>
             </div>
         </div>
   </div>
@@ -61,3 +61,21 @@ export default {
   },
 }
 </script>
+<style>
+    .h1{
+        color: #131982;
+    }
+    .h4{
+        font-size: 20px;
+        color: #666;
+    }
+    .h3{
+        color: #666;
+    }
+    p{
+        font-family: Roboto,sans-serif;
+        font-size: 15px;
+        line-height: 2;
+        color: #666;
+    }
+</style>
