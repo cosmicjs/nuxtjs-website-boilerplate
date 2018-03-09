@@ -28,8 +28,10 @@ export default {
   },
   head () {
     return {
-       link: this.header.favicon.url,
        title: this.header.site_title,
+        link: [
+          { rel: 'icon', type: 'image/x-icon', href: this.header.favicon.url },
+        ]
     }
 },
 }

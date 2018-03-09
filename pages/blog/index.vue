@@ -5,7 +5,7 @@
 
             <!-- Heading -->
             <div class="card-body">
-                <nuxt-link :to="'/blog/'+blog.slug"><h3 class="card-title">{{blog.title}}</h3></nuxt-link>
+                <nuxt-link style="text-decoration: none;" :to="'/blog/'+blog.slug"><h3 class="card-title">{{blog.title}}</h3></nuxt-link>
                 <img :src="blog.metadata.author.metadata.image.url" alt="Avatar" class="img-circle" height="20px;" width="20px;">
                 <span class="card-subtitle text-muted" style="margin-left:10px;">{{blog.metadata.author.title}}   Wed, Sep 28 2016</span>
             </div>
@@ -54,5 +54,8 @@ export default {
         font-weight: 500;
         line-height: 1.1;
         color: inherit;
+    }
+    a{
+        text-decoration: none;
     }
 </style>
