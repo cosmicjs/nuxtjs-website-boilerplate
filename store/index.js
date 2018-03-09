@@ -269,7 +269,6 @@ const actions = {
     }
     if(Globals){
       const mapped_globals = mapGlobals(Globals);
-      console.log(mapped_globals.header)
       context.commit('SET_HEADERS' ,mapped_globals.header.metadata)
       context.commit('SET_NAV' ,mapped_globals.nav)
       context.commit('SET_CONTACT_INFO',mapped_globals.contact_info.metadata)
@@ -318,6 +317,8 @@ const actions = {
     this.state.blogs.forEach(element => {
       if(element.slug == payload){
         context.commit('SET_SELECTED_BLOG',element)
+      }else{
+        context.commit('SET_SELECTED_BLOG',null)
       }
     });
   }

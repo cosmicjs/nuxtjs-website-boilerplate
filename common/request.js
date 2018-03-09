@@ -30,10 +30,7 @@ function getBlogs () {
 }
 
 function getSearchData(){
-  const params = {
-    type_slug: 'blogs'
-  };
-  return bucket.getObjects(params);
+  return bucket.getObjects();
 }
 
 function contactForm(data, contact){

@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="container">
-         <div class="card">
+         <div class="card" v-if="blog">
             <!-- Heading -->
             <div class="card-body">
                 <h3 class="card-title" style="color:#666;">{{blog.title}}</h3>
@@ -25,6 +25,9 @@
                 <div class="card-text" v-html="blog.content"></div>
             </div>
 
+            </div>
+            <div v-else>
+              <h1 class="text-center">Some thing go wrong</h1>
             </div>
       </div>
   </div>

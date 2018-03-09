@@ -46,9 +46,11 @@ export default {
 </script>
 
 <style>
-    .navbar-nav.navbar-center {
+    .navbar-nav ,.navbar-center {
         position: absolute;
         left: 20%;
     }
-    
+    .navbar-nav>li>a:active {
+        color:#777;
+    }
 </style>

@@ -49,7 +49,7 @@
                     <div v-if="errorMessage" class="alert alert-danger">
                         {{errorMessage}}
                     </div>
-                  <button class="btn btn-primary" @click="sendMessage">Submit</button>
+                  <button class="btn btn-primary btn-lg" @click="sendMessage">Submit</button>
           </div>
       </div>
       </div>
@@ -104,4 +104,12 @@ export default {
   .h2,label{
      color: #666;
   }
+  .btn-primary {
+        color: #fff;
+        background-color: #131982;
+        border-color: #10156c;
+    }
+    .btn-primary:hover{
+        background-color:#10156c;
+    }
 </style>

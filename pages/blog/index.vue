@@ -55,7 +55,7 @@ export default {
         line-height: 1.1;
         color: inherit;
     }
-    a{
-        text-decoration: none;
+    a:hover{
+        color:#10156c;
     }
 </style>

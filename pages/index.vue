@@ -11,7 +11,7 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" >
                     <div v-for="(c, index) in homeData.carousel" :key="index" class="item" v-bind:class="[index == 0 ? 'active' : '' ]">
-                        <img :src="c.url" alt="Los Angeles">
+                        <img :src="c.url" style="height:500px; width:100%;background-position: center;background-size: cover" alt="Los Angeles">
                     </div>
                 </div>
 
@@ -27,15 +27,15 @@
             </div>
         <div class="row">
             <div class="col-sm-12 text-center" style="margin-top:30px; margin-bottom:50px;">
-                <p class="h1">{{homeData.headline.value}}</p>
-                <p class="h4">{{homeData.subheadline.value}}</p>
+                <h1>{{homeData.headline.value}}</h1>
+                <h4>{{homeData.subheadline.value}}</h4>
             </div>
         </div>
         <div class="row">
             <div class="container">
                 <div class="col-sm-4 text-center" v-for="blurb in homeData.blurbs" :key="blurb.id">
-                    <p class="h3" style="margin-bottom:30px;">{{blurb.value}}</p>
-                    <img :src="'https://s3-us-west-2.amazonaws.com/cosmicjs/'+blurb.children[0].value" class="img-circle"  height="300px;" width="300px;" alt="">
+                    <h3 style="margin-bottom:30px;">{{blurb.value}}</h3>
+                    <img :src="'https://s3-us-west-2.amazonaws.com/cosmicjs/'+blurb.children[0].value" class="img-circle h-300 w-300"  alt="">
                     <p style="margin-top:30px;">
                         {{blurb.children[1].value}}
                     </p>
@@ -44,8 +44,8 @@
         </div>
         <div class="row" style="margin-bottom:30px;">
             <div class="col-sm-12 text-center" style="margin-top:50px;">
-                <p class="h1">{{homeData.call_to_action_text.value}}</p>
-                <p class="h4">{{homeData.call_to_action_subtext.value}}</p>
+                <h1>{{homeData.call_to_action_text.value}}</h1>
+                <h4>{{homeData.call_to_action_subtext.value}}</h4>
                 <br>
                 <nuxt-link class="btn btn-default btn-lg" to="contact">{{homeData.call_to_action_button_text.value}}</nuxt-link>
             </div>
@@ -61,15 +61,15 @@ export default {
   },
 }
 </script>
-<style>
-    .h1{
+<style scoped>
+    h1{
         color: #131982;
     }
-    .h4{
+    h4{
         font-size: 20px;
         color: #666;
     }
-    .h3{
+    h3{
         color: #666;
     }
     p{
@@ -77,5 +77,14 @@ export default {
         font-size: 15px;
         line-height: 2;
         color: #666;
+    }
+    .img-circle {
+        border-radius: 50%;
+    }
+    .h-300 {
+        height: 300px;
+    }
+    .w-300 {
+        width: 300px;
     }
 </style>
