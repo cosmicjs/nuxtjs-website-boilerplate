@@ -1,7 +1,0 @@
-"body { font-family: Verdana, Geneva, Tahoma, sans-serif; } .header { text-align: center; } .header img{ height: 100px; } .heading{ font-weight: 900; } .uppercase { text-transform: uppercase; } .italic { font-style: italic; } p{ margin: 0; padding: 0; } .text-bold{ font-weight: bold; text-transform: uppercase; } .center{ text-align: center; } table { width: 100%; margin: 0px; } table thead td { width: 20px; height: 20px; font-family: 'Courier New', Courier, monospace; font-weight: bold; }    ","","","","","",""
-"","","","","","",""
-"Report Form","","","","","",""
-"","","","","","",""
-"Test Date","Client Name","Case No","Groups","Test Type","Test Result","Reason"
-"2018-03-02","Rafael Berge","12345","Hahn-Flatley,Jaskolski LLC","Alcohol Breath Test (Morning)","4","BAC 4%"
-"2018-03-02","Albina Prohaska","","","Alcohol Breath Test (Morning)","50","BAC 50%"
