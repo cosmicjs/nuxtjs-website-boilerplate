@@ -9,9 +9,9 @@
 > [Read full tutorial on the blog](https://cosmicjs.com/blog/react-auth-app-blog-demo)
 
 ##Config
- To run the application go to .env and give bucket credentials. also provide
-    MAILGUN_KEY :'',
-    MAILGUN_DOMAIN : ''
+>To run the application go to .env and give bucket credentials. also provide
+>MAILGUN_KEY :'',
+>MAILGUN_DOMAIN : ''
 ## Build Setup
 
 ``` bash
