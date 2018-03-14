@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='container-fluid'>
         <div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top:-20px;">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
