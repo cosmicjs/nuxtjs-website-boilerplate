@@ -1,4 +1,4 @@
-# Nuxt Auth App using Cosmic JS, React and Node
+# Nuxt App using Cosmic JS
 
 ![medical-professional-demo](screenshots/main-image.png)
 
