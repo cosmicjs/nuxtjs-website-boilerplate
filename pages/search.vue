@@ -40,7 +40,11 @@ export default {
   },
   methods: {
       searchResult(){
-        this.$store.dispatch('getSearchData',this.searchField);
+          if(this.searchField != ''){ 
+            this.$store.dispatch('getSearchData',this.searchField);
+          }else{
+            this.$store.dispatch('getSearchData',null);
+          }
       }
   }
 }

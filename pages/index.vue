@@ -9,7 +9,7 @@
                 </ol>
 
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner" >
+                <div class="carousel-inner">
                     <div v-for="(c, index) in homeData.carousel" :key="index" class="item" v-bind:class="[index == 0 ? 'active' : '' ]">
                         <img :src="c.url" style="height:500px; width:100%;background-position: center;background-size: cover" alt="Los Angeles">
                     </div>
