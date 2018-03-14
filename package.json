@@ -1,8 +1,8 @@
 {
-  "name": "medical-professional",
+  "name": "medical-professional-nuxt-js",
   "version": "1.0.0",
   "description": "Nuxt.js Website Boilerplate",
-  "author": "Zubair Hasrat <zubairhasrat48@gmail.com>",
+  "author": "BitBytes",
   "private": true,
   "scripts": {
     "dev": "nuxt",
