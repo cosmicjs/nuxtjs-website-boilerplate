@@ -16,6 +16,7 @@
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.1",
     "cosmicjs": "^3.1.2",
+    "dotenv": "^5.0.1",
     "mailgun.js": "^2.0.1",
     "nuxt": "^1.0.0",
     "vee-validate": "^2.0.5"
