@@ -35,7 +35,8 @@
             <div class="container">
                 <div class="col-sm-4 text-center" v-for="blurb in homeData.blurbs" :key="blurb.id">
                     <h3 style="margin-bottom:30px;">{{blurb.value}}</h3>
-                    <img :src="'https://s3-us-west-2.amazonaws.com/cosmicjs/'+blurb.children[0].value" class="img-circle h-300 w-300"  alt="">
+                    <div class="img-circle h-300 w-300" style="`background: url(https://s3-us-west-2.amazonaws.com/cosmicjs/${blurb.children[0].value}}), background-size:cover, height: 300px, width: 300px`">
+                    </div>
                     <p style="margin-top:30px;">
                         {{blurb.children[1].value}}
                     </p>
