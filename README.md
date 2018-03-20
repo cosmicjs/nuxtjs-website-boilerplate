@@ -4,9 +4,9 @@
 
 > Learn how to build a nuxt app using cosmic.js
 
-> [See live demo hosted on Cosmic JS](http://react-auth-app.cosmicapp.co/)
+> [See live demo hosted on Cosmic JS](http://medical-professional-nuxt-js.cosmicapp.co/)
 
-> [Read full tutorial on the blog](https://cosmicjs.com/blog/react-auth-app-blog-demo)
+> [Read full tutorial on the blog](https://cosmicjs.com/articles/nuxtjs-website-boilerplate-jezdxaxb)
 
 # Config
 >To run the application go to .env and give bucket credentials. also provide
