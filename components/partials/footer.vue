@@ -9,12 +9,12 @@
                     <br>
                     <label>Phone:</label>
                     <br />
-                    <p>{{contactInfo.phone}}</p>
+                    <div class="p">{{contactInfo.phone}}</div>
                     <label>Email:</label>
                     <br />
-                    <p><a :href="'mailto:'+contactInfo.email">{{contactInfo.email}}</a></p>
+                    <div class="p"><a :href="'mailto:'+contactInfo.email">{{contactInfo.email}}</a></div>
                     <label>Address:</label><br />
-                    <p v-html="contactInfo.address">{{contactInfo.address}}</p>
+                    <div class="p" v-html="contactInfo.address">{{contactInfo.address}}</div>
                 </div>
                 <div class="col-sm-4" style="margin-top:50px;">
                     <h4 class="mb-20">Connect</h4>
