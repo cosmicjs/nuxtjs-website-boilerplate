@@ -47,10 +47,23 @@ export default {
 
 <style>
     .navbar-nav ,.navbar-center {
-        position: absolute;
-        left: 20%;
+        text-align:center;
     }
     .navbar-nav>li>a:active {
         color:#777;
+    }
+    
+    @media (min-width: 768px) {
+        .navbar-nav {
+            width: 100%;
+            text-align: center;
+        }
+        .navbar-nav > li {
+            float: none;
+            display: inline-block;
+        }
+        .navbar-nav > li.navbar-right {
+            float: right !important;
+        }
     }
 </style>
