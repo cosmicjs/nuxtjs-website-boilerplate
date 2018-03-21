@@ -34,23 +34,12 @@
             </div>
         </div>
         <div class="row">
-<<<<<<< HEAD
             <div class="container col-xs-12">
             <div class="col-sm-4 text-center" v-for="blurb in homeData.blurbs" :key="blurb.id">
                 <div class="h3" style="margin-bottom:30px;">{{blurb.value}}</div>
                 <div class="w-300 h-300 img-circle center-block" :style="`background: url(https://s3-us-west-2.amazonaws.com/cosmicjs/${blurb.children[0].value }?w=600); background-size: cover; background-position: center;`"></div>
                 <div class="p" style="margin-top:30px;">
                     {{blurb.children[1].value}}
-=======
-            <div class="container">
-                <div class="col-sm-4 text-center" v-for="blurb in homeData.blurbs" :key="blurb.id">
-                    <h3 style="margin-bottom:30px;">{{blurb.value}}</h3>
-                    <div class="img-circle h-300 w-300" :style="`background: url(https://s3-us-west-2.amazonaws.com/cosmicjs/${blurb.children[0].value}}), background-size:cover, height: 300px, width: 300px`">
-                    </div>
-                    <p style="margin-top:30px;">
-                        {{blurb.children[1].value}}
-                    </p>
->>>>>>> 1519ab0858291b4b8080318f94ae1105da057085
                 </div>
             </div>
             </div>
