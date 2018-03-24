@@ -19,9 +19,7 @@
     "dotenv": "^5.0.1",
     "mailgun.js": "^2.0.1",
     "nuxt": "^1.0.0",
-    "vee-validate": "^2.0.5"
-  },
-  "devDependencies": {
+    "vee-validate": "^2.0.5",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
