@@ -1,29 +1,45 @@
-# Nuxt App using Cosmic JS
+# Nuxt.js Website Boilerplate
 
-![medical-professional-demo](screenshots/main-image.png)
+![nuxtjs-website-boilerplate](https://cosmic-s3.imgix.net/f761b6c0-31c3-11e8-b70e-833ed2e4b04d-nuxtjs-cosmicjs.jpg)
+A website template that satisfies some common website requirements including dynamic pages, blog articles, author management, SEO ability, contact form and website search.  Contributions welcome!
 
-> Learn how to build a nuxt app using cosmic.js
+## Demo
+[Click here to view the demo](https://cosmicjs.com/apps/nextjs-website-boilerplate)
 
-> [See live demo hosted on Cosmic JS](http://medical-professional-nuxt-js.cosmicapp.co/)
+> [Read how this app was built](https://cosmicjs.com/articles/nuxtjs-website-boilerplate-jezdxaxb)
 
-> [Read full tutorial on the blog](https://cosmicjs.com/articles/nuxtjs-website-boilerplate-jezdxaxb)
+## Features
+1. Fully responsive down to mobile w/ [Bootstrap](http://getbootstrap.com) frontend<br />
+2. SEO ready<br />
+3. A contact form that sends an email to your email(s) of choice and to [Cosmic JS](https://cosmicjs.com) for easy reference<br />
+4. Full-site search functionality<br />
+5. All content is easily managed in [Cosmic JS](https://cosmicjs.com) including pages, blog and contact info.
 
-# Config
->To run the application go to .env and give bucket credentials. also provide
->MAILGUN_KEY :'',
->MAILGUN_DOMAIN : ''
-## Build Setup
+Sign up for [Cosmic JS](https://cosmicjs.com) to install the demo content and deploy this website.
 
-``` bash
-# install dependencies
+## Getting Started
+
+```bash
+git clone https://github.com/cosmicjs/nodejs-website-boilerplate
+cd nextjs-website-boilerplate
 npm install
 
-# serve with hot reload at localhost:3000
+# Run in development and serve at localhost:3000
 npm run dev
 
-# build for production with minification
+# build for production
 npm run build
 
-# build for production
-npm run start
+# Run in production and serve at localhost:3000
+COSMIC_BUCKET=your-bucket-slug npm start
 ```
+
+
+## Configure
+
+After you deploy your app, to add your [MailGun](https://www.mailgun.com/) credentials go to your Cosmic Bucket Dashboard and click Settings > Deploy Web App.  Click 'Set Environment Variables' tab and add the following variables:
+
+Key | Value
+--- | ---
+| MAILGUN_KEY     | your key
+| MAILGUN_DOMAIN      | your domain
