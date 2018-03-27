@@ -4,7 +4,7 @@
 A website template that satisfies some common website requirements including dynamic pages, blog articles, author management, SEO ability, contact form and website search.  Contributions welcome!
 
 ## Demo
-[Click here to view the demo](https://cosmicjs.com/apps/nextjs-website-boilerplate)
+[Click here to view the demo](https://cosmicjs.com/apps/nuxtjs-website-boilerplate)
 
 > [Read how this app was built](https://cosmicjs.com/articles/nuxtjs-website-boilerplate-jezdxaxb)
 
@@ -21,7 +21,7 @@ Sign up for [Cosmic JS](https://cosmicjs.com) to install the demo content and de
 
 ```bash
 git clone https://github.com/cosmicjs/nodejs-website-boilerplate
-cd nextjs-website-boilerplate
+cd nuxtjs-website-boilerplate
 npm install
 
 # Run in development and serve at localhost:3000
