@@ -9,13 +9,13 @@ function mapPages(pages) {
   pages.map((page) => {
     switch(page.slug){
       case 'new-york-medical-services':
-        response.new_york = page;
+        response.new_york_medical_services = page;
         break;
       case 'los-angeles-medical-services':
-        response.los_angeles = page;
+        response.los_angeles_medical_services = page;
         break;
       case 'chicago-medical-services':
-        response.chicago = page;
+        response.chicago_medical_services = page;
         break;
       case 'contact':
         response.contact = page;
@@ -44,7 +44,7 @@ function mapPages(pages) {
         });
         break;
       case 'specialty-centers-and-programs':
-        response.specialty = page;
+        response.specialty_centers_and_programs = page;
         break;
       case 'deciding-on-care':
         response.deciding_on_care = page;
@@ -96,11 +96,12 @@ const state = {
       home: {},
       about: {},
       blog: {},
-      decidingOnCare: {},
-      specialityCenter: {},
-      los_angeles_medical_service: {},
-      chicago_medical_service: {},
-      new_york_medical_service: {},
+      page: {},
+      deciding_on_care: {},
+      specialty_centers_and_programs: {},
+      los_angeles_medical_services: {},
+      chicago_medical_services: {},
+      new_york_medical_services: {},
       faqs: {},
       contact_us: {}
 
@@ -130,21 +131,6 @@ const getters = {
   getBlogPage(state) {
     return state.pages.blog
   },
-  getDecidingOnCarePage(state) {
-    return state.pages.decidingOnCare
-  },
-  getSpecialityCenterPage(state) {
-    return state.pages.specialityCenter
-  },
-  getLosAngelesMedicalService(state) {
-    return state.pages.los_angeles_medical_service
-  },
-  getChicagoMedicalService(state) {
-    return state.pages.chicago_medical_service
-  },
-  getNewYorkMedicalService(state) {
-    return state.pages.new_york_medical_service
-  },
   getFaqs(state) {
     return state.pages.faqs
   },
@@ -168,6 +154,10 @@ const getters = {
   },
   getSelectedBlog(state) {
     return state.blog 
+  },
+  getPage: (state) => (id) => {
+    id = id.replace(/-/g,'_');
+    return state.pages[id];
   }
 }
 
@@ -197,19 +187,19 @@ const mutations = {
     state.pages.blog = payload
   },
   SET_DECIDE_ON_CARE : (state, payload) => {
-    state.pages.decidingOnCare = payload
+    state.pages.deciding_on_care = payload
   },
   SET_SPECIALITY : (state, payload) => {
-    state.pages.specialityCenter = payload
+    state.pages.specialty_centers_and_programs = payload
   },
   SET_CHICAGO_MEDICAL_SERVICE : (state, payload) => {
-    state.pages.chicago_medical_service = payload
+    state.pages.chicago_medical_services = payload
   },
   SET_New_YORK_MEDICAL_SERVICE : (state, payload) => {
-    state.pages.new_york_medical_service = payload
+    state.pages.new_york_medical_services = payload
   },
   SET_LOS_ANGELES_MEDICAL_SERVICE : (state, payload) => {
-    state.pages.los_angeles_medical_service = payload
+    state.pages.los_angeles_medical_services = payload
   },
   SET_FAQS : (state,payload) => {
     state.pages.faqs = payload
@@ -234,6 +224,9 @@ const mutations = {
   },
   SET_SELECTED_BLOG: (state,payload) => {
     state.blog = payload
+  },
+  SET_PAGE: (state,payload) => {
+    state.pages.page = payload;
   }
 }
 
@@ -261,11 +254,12 @@ const actions = {
       context.commit('SET_BLOG' ,mapped_pages.blog)
       context.commit('SET_FAQS' ,mapped_pages.faqs)
       context.commit('SET_DECIDE_ON_CARE' ,mapped_pages.deciding_on_care)
-      context.commit('SET_SPECIALITY' ,mapped_pages.specialty)
-      context.commit('SET_CHICAGO_MEDICAL_SERVICE' ,mapped_pages.chicago)
-      context.commit('SET_New_YORK_MEDICAL_SERVICE' ,mapped_pages.new_york)
-      context.commit('SET_LOS_ANGELES_MEDICAL_SERVICE' ,mapped_pages.los_angeles)
+      context.commit('SET_SPECIALITY' ,mapped_pages.specialty_centers_and_programs)
+      context.commit('SET_CHICAGO_MEDICAL_SERVICE' ,mapped_pages.chicago_medical_services)
+      context.commit('SET_New_YORK_MEDICAL_SERVICE' ,mapped_pages.new_york_medical_services)
+      context.commit('SET_LOS_ANGELES_MEDICAL_SERVICE' ,mapped_pages.los_angeles_medical_services)
       context.commit('SET_CONTACT_US' ,mapped_pages.contact)
+      context.commit('SET_PAGE',)
     }
     if(Globals){
       const mapped_globals = mapGlobals(Globals);

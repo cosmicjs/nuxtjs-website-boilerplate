@@ -1,23 +1,22 @@
 <template>
   <div>
       <div class="container">
-            <h1>{{chicagoMedicalService.title}}</h1>
-            <div class="p" v-html="chicagoMedicalService.content">
-            </div>
+            <h1>{{getPageData.title}}</h1>
+            <div class="p" v-html="getPageData.content"></div>
       </div>
   </div>
 </template>
 <script>
 export default {
    computed: {
-      chicagoMedicalService(){
-        return this.$store.getters.getChicagoMedicalService
+      getPageData(){
+        return this.$store.getters.getPage(this.$route.params.name);
       }
-  },
+  }
 }
 </script>
 <style scoped>
-    h1{
+   h1{
     margin-top: 30px;
     margin-bottom: 15px;
     font-size: 39px;
