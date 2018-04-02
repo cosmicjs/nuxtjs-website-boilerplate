@@ -10,7 +10,7 @@
 export default {
   computed: {
     about(){
-        return this.$store.getters.getAboutPage
+        return this.$store.getters.getPage(this.$route.name)
     }
   },
 }
