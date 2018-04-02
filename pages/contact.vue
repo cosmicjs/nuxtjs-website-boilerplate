@@ -71,7 +71,7 @@ export default {
     },
     computed: {
         contact(){
-            return this.$store.getters.getContactUs
+            return this.$store.getters.getPage(this.$route.name)
         }
     },
     methods: {

@@ -8,18 +8,6 @@ function mapPages(pages) {
   var response = {};
   pages.map((page) => {
     switch(page.slug){
-      case 'new-york-medical-services':
-        response.new_york_medical_services = page;
-        break;
-      case 'los-angeles-medical-services':
-        response.los_angeles_medical_services = page;
-        break;
-      case 'chicago-medical-services':
-        response.chicago_medical_services = page;
-        break;
-      case 'contact':
-        response.contact = page;
-        break;
       case 'faqs':
         response.faqs = {};
         response.faqs.title = 'FAQs'
@@ -30,9 +18,6 @@ function mapPages(pages) {
       case 'blog':
         response.blog = page;
         break;
-      case 'search':
-        response.search = page;
-        break;
       case 'home':
         response.home = {};
         page.metafields.map((obj) => {
@@ -42,15 +27,6 @@ function mapPages(pages) {
           else
             response.home[obj.key] = obj;
         });
-        break;
-      case 'specialty-centers-and-programs':
-        response.specialty_centers_and_programs = page;
-        break;
-      case 'deciding-on-care':
-        response.deciding_on_care = page;
-        break;
-      case 'about-us':
-        response.about_us = page;
         break;
     }
   })
@@ -94,18 +70,10 @@ const state = {
   },
   pages: {
       home: {},
-      about: {},
       blog: {},
-      page: {},
-      deciding_on_care: {},
-      specialty_centers_and_programs: {},
-      los_angeles_medical_services: {},
-      chicago_medical_services: {},
-      new_york_medical_services: {},
       faqs: {},
-      contact_us: {}
-
   },
+  page:{},
   blogs: {},
   blog: {},
   search: {},
@@ -125,9 +93,6 @@ const getters = {
   getHomeData(state){
       return state.pages.home
   },
-  getAboutPage(state){
-    return state.pages.about
-  },
   getBlogPage(state) {
     return state.pages.blog
   },
@@ -136,9 +101,6 @@ const getters = {
   },
   getBlog(state) {
     return state.blogs
-  },
-  getContactUs(state) {
-    return state.pages.contact_us
   },
   getSearchData(state) {
     return state.search_data 
@@ -155,9 +117,8 @@ const getters = {
   getSelectedBlog(state) {
     return state.blog 
   },
-  getPage: (state) => (id) => {
-    id = id.replace(/-/g,'_');
-    return state.pages[id];
+  getPage: (state) => (slug) => {
+    return _.find(state.page, function(o) { return o.slug == slug; });
   }
 }
 
@@ -180,35 +141,14 @@ const mutations = {
   SET_HOME : (state, payload) => {
     state.pages.home = payload
   },
-  SET_ABOUT : (state, payload) => {
-    state.pages.about = payload
-  },
   SET_BLOG : (state, payload) => {
     state.pages.blog = payload
-  },
-  SET_DECIDE_ON_CARE : (state, payload) => {
-    state.pages.deciding_on_care = payload
-  },
-  SET_SPECIALITY : (state, payload) => {
-    state.pages.specialty_centers_and_programs = payload
-  },
-  SET_CHICAGO_MEDICAL_SERVICE : (state, payload) => {
-    state.pages.chicago_medical_services = payload
-  },
-  SET_New_YORK_MEDICAL_SERVICE : (state, payload) => {
-    state.pages.new_york_medical_services = payload
-  },
-  SET_LOS_ANGELES_MEDICAL_SERVICE : (state, payload) => {
-    state.pages.los_angeles_medical_services = payload
   },
   SET_FAQS : (state,payload) => {
     state.pages.faqs = payload
   },
   SET_BLOGS : (state,payload) => {
     state.blogs = payload
-  },
-  SET_CONTACT_US: (state,payload) => {
-    state.pages.contact_us = payload
   },
   SET_SEARCH_DATA: (state, payload) => {
     state.search_data = payload
@@ -226,7 +166,7 @@ const mutations = {
     state.blog = payload
   },
   SET_PAGE: (state,payload) => {
-    state.pages.page = payload;
+    state.page = payload;
   }
 }
 
@@ -248,18 +188,11 @@ const actions = {
       context.commit('SET_BLOGS', Blogs)
     }
     if(Pages){
+      context.commit('SET_PAGE',Pages)
       const mapped_pages = mapPages(Pages);
       context.commit('SET_HOME' ,mapped_pages.home)
-      context.commit('SET_ABOUT' ,mapped_pages.about_us)
       context.commit('SET_BLOG' ,mapped_pages.blog)
       context.commit('SET_FAQS' ,mapped_pages.faqs)
-      context.commit('SET_DECIDE_ON_CARE' ,mapped_pages.deciding_on_care)
-      context.commit('SET_SPECIALITY' ,mapped_pages.specialty_centers_and_programs)
-      context.commit('SET_CHICAGO_MEDICAL_SERVICE' ,mapped_pages.chicago_medical_services)
-      context.commit('SET_New_YORK_MEDICAL_SERVICE' ,mapped_pages.new_york_medical_services)
-      context.commit('SET_LOS_ANGELES_MEDICAL_SERVICE' ,mapped_pages.los_angeles_medical_services)
-      context.commit('SET_CONTACT_US' ,mapped_pages.contact)
-      context.commit('SET_PAGE',)
     }
     if(Globals){
       const mapped_globals = mapGlobals(Globals);
