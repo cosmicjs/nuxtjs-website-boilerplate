@@ -50,5 +50,9 @@ module.exports = {
         })
       }
     }
+  },
+  env: {
+    SENDGRID_ENDPOINT: process.env.SENDGRID_ENDPOINT,
+    SENDGRID_TO: process.env.SENDGRID_TO
   }
 }

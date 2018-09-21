@@ -34,13 +34,14 @@ function getSearchData(){
 }
 
 async function contactForm(data, contact){
-  var url = 'https://your-sendgrid-cosmic-function-url.lambda.aws.com'
+  var url = process.env.SENDGRID_ENDPOINT
+  var to = process.env.SENDGRID_TO
   var data = {
-    to: 'you@youremail.com',
+    to,
     from: `${data.email}`,
     subject: `Contact form submission: ${data.name}`,
-    text_body: 'This is just a test',
-    html_body: `<b>HELLO</b> ${data.name} ${data.email} ${data.phone} ${data.message}`
+    text_body: `This is a plain text version of this message: ${data.message}`,
+    html_body: `Name: ${data.name}<br />Email: ${data.email}<br />Phone: ${data.phone}<br />Message: ${data.message}`
   }
   const res = await fetch(url, {
     method: 'POST',
