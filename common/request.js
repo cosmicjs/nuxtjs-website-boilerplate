@@ -36,7 +36,7 @@ function getSearchData(){
 async function contactForm(data, contact){
   var url = process.env.SENDGRID_ENDPOINT
   var to = process.env.SENDGRID_TO
-  var data = {
+  var sendgrid_data = {
     to,
     from: `${data.email}`,
     subject: `Contact form submission: ${data.name}`,
@@ -45,7 +45,7 @@ async function contactForm(data, contact){
   }
   const res = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(sendgrid_data),
     headers:{
       'Content-Type': 'application/json'
     }
@@ -65,35 +65,6 @@ async function contactForm(data, contact){
     }
   })
   return res
-}
-
-function saveForm(data){
-  //Send to Cosmic
-  const params = {
-    type_slug: 'form-submissions',
-    title: data.name,
-    content: data.message,
-    
-    metafields: [
-    {
-      title: 'Email',
-      key: 'email',
-      type: 'text',
-      value: data.email
-    },
-    {
-      title: 'Phone',
-      key: 'phone',
-      type: 'text',
-      value: data.phone
-    }
-    ]
-  }
-  if (config.bucket.write_key)
-    // Write to Cosmic Bucket (Optional)
-    bucket.addObject(params, (err, response) => {
-      return res.json({ status: 'success', data: response })
-    })
 }
 
 export default {getGlobals,getPages,getBlogs,getSearchData,contactForm}
