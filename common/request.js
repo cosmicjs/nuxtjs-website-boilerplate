@@ -33,71 +33,67 @@ function getSearchData(){
   return bucket.getObjects();
 }
 
-function contactForm(data, contact){
-
-  if(!config.env.MAILGUN_KEY || !config.env.MAILGUN_DOMAIN){
-    return {
-      status : false,
-      message : "You must add a MailGun api key and domain using environment variables located in Your Cosmic JS Bucket > Deploy to Web.  Contact your developer to add these values."
+async function contactForm(data, contact){
+  var url = process.env.SENDGRID_ENDPOINT
+  var to = process.env.SENDGRID_TO
+  var data = {
+    to,
+    from: `${data.email}`,
+    subject: `Contact form submission: ${data.name}`,
+    text_body: `This is a plain text version of this message: ${data.message}`,
+    html_body: `Name: ${data.name}<br />Email: ${data.email}<br />Phone: ${data.phone}<br />Message: ${data.message}`
+  }
+  const res = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers:{
+      'Content-Type': 'application/json'
     }
-  }else{
-    var api_key = config.env.MAILGUN_KEY // add mailgun key
-    var domain = config.env.MAILGUN_DOMAIN // add mailgun domain
-    var mailgun = require('mailgun.js')({ apiKey: api_key, domain: domain })
-    var message = 'Name: ' + data.name + '\n\n' +
-    'Subject: ' + contact.subject + '\n\n' +
-    'Message: ' + data.message + '\n\n'
-    var mailgun_data = {
-      from: 'Your Website <me@' + domain + '>',
-      to: contact.to,
-      subject: data.name + ' sent you a new message: ' + data.message,
-      text: message
-    }  
-    mailgun.messages().send(mailgun_data, function (error, body) {
-      if (error)
-        return{
-          status: false,
-          message: "You must add a MailGun api key and domain using environment variables located in Your Cosmic JS Bucket > Deploy to Web.  Contact your developer to add these values."
-        }
-        else 
-          var res = saveForm(data);
-        if(res.status){
-          return{
-            status: true,
-            message: contact.metadata.contact_form_success_message.value
-          }
-        }
-    })
+  }).then(res => res.json())
+  .then(response => {
+    console.log('Success:', JSON.stringify(response))
+    return {
+      status: true,
+      message: 'Message sent!'
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error)
+    return {
+      error: true,
+      message: 'Message NOT sent!'
+    }
+  })
+  return res
 }
 
 function saveForm(data){
-      //Send to Cosmic
-      const params = {
-        type_slug: 'form-submissions',
-        title: data.name,
-        content: data.message,
-       
-       metafields: [
-        {
-          title: 'Email',
-          key: 'email',
-          type: 'text',
-          value: data.email
-        },
-        {
-          title: 'Phone',
-          key: 'phone',
-          type: 'text',
-          value: data.phone
-        }
-      ]
+  //Send to Cosmic
+  const params = {
+    type_slug: 'form-submissions',
+    title: data.name,
+    content: data.message,
+    
+    metafields: [
+    {
+      title: 'Email',
+      key: 'email',
+      type: 'text',
+      value: data.email
+    },
+    {
+      title: 'Phone',
+      key: 'phone',
+      type: 'text',
+      value: data.phone
     }
-    if (config.bucket.write_key)
-        // Write to Cosmic Bucket (Optional)
-        bucket.addObject(params, (err, response) => {
-          return res.json({ status: 'success', data: response })
-        })
-  } 
+    ]
+  }
+  if (config.bucket.write_key)
+    // Write to Cosmic Bucket (Optional)
+    bucket.addObject(params, (err, response) => {
+      return res.json({ status: 'success', data: response })
+    })
 }
 
 export default {getGlobals,getPages,getBlogs,getSearchData,contactForm}
