@@ -38,6 +38,17 @@ COSMIC_BUCKET=your-bucket-slug npm start
 ## Configure Contact Form
 [Cosmic Functions](https://cosmicjs.com/docs/functions) make it easy to process your contact form securely.
 
+#### Configure locally
+To configure locally, you can hard code your environment variables in `nuxt.config.js`:
+```
+env: {
+  SENDGRID_ENDPOINT: process.env.SENDGRID_ENDPOINT, // edit this to your Cosmic Function endpoint
+  SENDGRID_TO: process.env.SENDGRID_TO // edit this to your email address
+}
+```
+
+#### Configure on the Cosmic App Server:
+
 After you deploy your app follow these steps to configure [SendGrid](https://www.sendgrid.com/) to send the contact form submission:
 1. Go to Your Bucket > Settings > Functions and add the SendGrid Function.
 2. Go to Your Bucket > Settings > Web Hosting and click 'Set Environment Variables' tab and save the following variables:
