@@ -82,7 +82,6 @@ export default {
                     res.then(response => {
                         console.log('response', response)
                         if(!response || !response.status){
-                            response.message = 'Email not sent. You need to add the email endpoint to your common/request.js file.'
                             this.errorMessage = response.message
                         }else{
                             this.successMessage = response.message

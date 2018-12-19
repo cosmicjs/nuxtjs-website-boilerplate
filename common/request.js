@@ -1,6 +1,6 @@
 import Cosmic from 'cosmicjs'
 import config from '~/config/config'
-import async from 'async'
+import axios from 'axios'
 const api = Cosmic()
 const bucket = api.bucket({
   slug: config.bucket.slug,
@@ -33,38 +33,64 @@ function getSearchData(){
   return bucket.getObjects();
 }
 
-async function contactForm(data, contact){
-  var url = process.env.SENDGRID_ENDPOINT
-  var to = process.env.SENDGRID_TO
-  var sendgrid_data = {
-    to,
-    from: `${data.email}`,
-    subject: `Contact form submission: ${data.name}`,
-    text_body: `This is a plain text version of this message: ${data.message}`,
-    html_body: `Name: ${data.name}<br />Email: ${data.email}<br />Phone: ${data.phone}<br />Message: ${data.message}`
+async function contactForm(data, contact) {
+  if (!config.env.SENDGRID_FUNCTION_ENDPOINT) {
+    return {
+      status: false,
+      message: "You must add a SendGrid Function Endpoint URL.  Contact your developer to add this value."
+    }
+  } else {
+    try {
+      var message = 'Name:<br>' + data.name + '<br><br>' +
+      'Subject:<br>' + contact.subject + '<br><br>' +
+      'Message:<br>' + data.message + '<br><br>'
+      var email_data = {
+        from: data.email,
+        to: contact.to,
+        subject: data.name + ' sent you a new message',
+        text_body: message,
+        html_body: message
+      }
+      const url = config.env.SENDGRID_FUNCTION_ENDPOINT
+      await axios.post(url, email_data)
+      saveForm(data)
+      return {
+        status: true,
+        message: 'Success.'
+      }
+    } catch(error) {
+      console.log(error)
+      return {
+        status: false,
+        message: "You must add a SendGrid Function Endpoint URL.  Contact your developer to add this value."
+      }
+    }
   }
-  const res = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(sendgrid_data),
-    headers:{
-      'Content-Type': 'application/json'
+
+  async function saveForm(data) {
+    //Send to Cosmic
+    const params = {
+      type_slug: 'form-submissions',
+      title: data.name,
+      content: data.message,
+
+      metafields: [{
+          title: 'Email',
+          key: 'email',
+          type: 'text',
+          value: data.email
+        },
+        {
+          title: 'Phone',
+          key: 'phone',
+          type: 'text',
+          value: data.phone
+        }
+      ]
     }
-  }).then(res => res.json())
-  .then(response => {
-    console.log('Success:', JSON.stringify(response))
-    return {
-      status: true,
-      message: 'Message sent!'
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error)
-    return {
-      error: true,
-      message: 'Message NOT sent!'
-    }
-  })
-  return res
+    // Write to Cosmic Bucket (Optional)
+    const response = await bucket.addObject(params)
+  }
 }
 
 export default {getGlobals,getPages,getBlogs,getSearchData,contactForm}

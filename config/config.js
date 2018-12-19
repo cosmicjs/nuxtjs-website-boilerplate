@@ -6,7 +6,6 @@ module.exports = {
     },
 
     env: {
-      MAILGUN_KEY : process.env.MAILGUN_KEY,
-      MAILGUN_DOMAIN : process.env.MAILGUN_DOMAIN
+        SENDGRID_FUNCTION_ENDPOINT: process.env.SENDGRID_FUNCTION_ENDPOINT || 'https://your-function-endpoint.execute-api.us-east-1.amazonaws.com/dev/send-email'
     }
 }
