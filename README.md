@@ -33,27 +33,28 @@ npm run build
 # Run in production and serve at localhost:3000
 COSMIC_BUCKET=your-bucket-slug npm start
 ```
+Import the `bucket.json` file into your Cosmic JS Bucket.  To do this go to Your Bucket > Settings > Import / Export Data.
 
+<img src="https://cosmic-s3.imgix.net/44f0d590-0303-11e9-b4bb-b3fa3d766bf7-sendgrid.gif?w=1300" width="700" />
 
-## Configure Contact Form
-[Cosmic Functions](https://cosmicjs.com/docs/functions) make it easy to process your contact form securely.
+## Contact form setup
+Install and deploy the SendGrid Email Function.
 
-#### Configure locally
-To configure locally, you can hard code your environment variables in `nuxt.config.js`:
-```
-env: {
-  SENDGRID_ENDPOINT: process.env.SENDGRID_ENDPOINT, // edit this to your Cosmic Function endpoint
-  SENDGRID_TO: process.env.SENDGRID_TO // edit this to your email address
-}
-```
+<img src="https://cosmic-s3.imgix.net/a07738c0-00d6-11e9-95fe-59d8fdd00c64-sendgrid-email.png?w=1500" width="700" />
 
-#### Configure on the Cosmic App Server:
+The contact form on the contact page uses the [SendGrid Email Function](https://github.com/cosmicjs/send-email-function) to send emails. To deploy your email function go to Your Bucket > Settings > Functions. Install and deploy the SendGrid Function. You will need an account with [SendGrid](https://sendgrid.com/) to add your SendGrid API key.
 
-After you deploy your app follow these steps to configure [SendGrid](https://www.sendgrid.com/) to send the contact form submission:
-1. Go to Your Bucket > Settings > Functions and add the SendGrid Function.
-2. Go to Your Bucket > Settings > Web Hosting and click 'Set Environment Variables' tab and save the following variables:
+### Add the SendGrid Function Endpoint
+
+#### in development
+Go to `config/index.js` and edit `SENDGRID_FUNCTION_ENDPOINT` to manually add the URL for testing.
+
+#### in production
+If you are using the Web Hosting option that's included with every Bucket:
+1. Go to Your Bucket > Settings > Web Hosting
+2. Deploy your Website
+3. Click 'Set Environment Variables' tab and add the SendGrid Function endpoint:
 
 Key | Value
 --- | ---
-| SENDGRID_ENDPOINT     | Your SendGrid function endpoint
-| SENDGRID_TO      | The email(s) that will receive the contact form submission (comma-separated)
+| SENDGRID_FUNCTION_ENDPOINT     | https://your-lambda-endpoint.amazonaws.com/dev/send-email
